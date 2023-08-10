@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34003.232
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncurtadorDeLinks", "EncurtadorDeLinks\EncurtadorDeLinks.csproj", "{61D3486A-3955-40EC-A9AB-6F7BB5BB3A56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "EncurtadorDeLinks\WebApi.csproj", "{61D3486A-3955-40EC-A9AB-6F7BB5BB3A56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{39DD8752-B359-4A5B-B2A4-8A14BE31A99C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{39DD8752-B359-4A5B-B2A4-8A14BE31A99C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infraestructure\Infrastructure.csproj", "{836FB391-8AD0-4B2D-BE94-7758FF03C56C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infraestructure\Infrastructure.csproj", "{836FB391-8AD0-4B2D-BE94-7758FF03C56C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{E20A84DE-2052-41AD-BAB5-CF3E791D0820}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{E20A84DE-2052-41AD-BAB5-CF3E791D0820}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
