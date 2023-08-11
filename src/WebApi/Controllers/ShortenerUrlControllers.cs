@@ -1,24 +1,19 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UrlShortenerControllere : ControllerBase
+    public class ShortenerUrlControllers : ControllerBase
     {
-
-
-
-
         [HttpGet]
-        public async Task<IActionResult> GetAllUrlAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
             return Ok();
         }
 
         [HttpGet]
-        [Route("/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> GetByIdAsync(string urlId)
         {
             return Ok();
