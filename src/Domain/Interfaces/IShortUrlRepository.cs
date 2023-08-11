@@ -6,10 +6,12 @@ namespace Domain.Interfaces
     {
         Task CreateAsync(ShortenedUrl entity, CancellationToken cancellationToken = default);
 
-        Task GetByIdAsync(string id);
+        Task<ShortenedUrl?> GetByIdAsync(string id, CancellationToken cancellationtoken = default);
 
-        Task<ShortenedUrl> GetByLongUriAsync(string longUri);
+        Task<ShortenedUrl?> GetByLongUriAsync(string longUri, CancellationToken cancellationToken = default);
 
-        Task<IEnumerable<ShortenedUrl>> GetAllAsync();
+        Task UpdateAsync(ShortenedUrl enitity, CancellationToken cancellationToken = default);
+
+        Task<IEnumerable<ShortenedUrl>> GetAllAsync(CancellationToken cancellationToken = default);
     }
 }

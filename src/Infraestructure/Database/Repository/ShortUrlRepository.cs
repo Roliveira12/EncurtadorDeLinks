@@ -1,33 +1,49 @@
 ﻿using Domain.Entities;
 using Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database.Repository
 {
     internal sealed class ShortUrlRepository : IShortUrlRepository
     {
-        public Task CreateAsync(ShortenedUrl entity, CancellationToken cancellationToken = default)
+        private readonly ApplicationDbContext context;
+
+        public ShortUrlRepository(ApplicationDbContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
         }
 
-        public Task<IEnumerable<ShortenedUrl>> GetAllAsync()
+        public async Task CreateAsync(ShortenedUrl entity, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            await context.ShortUrls.AddAsync(entity, cancellationToken);
+
+            await context.SaveChangesAsync(cancellationToken);
         }
 
-        public Task GetByIdAsync(string id)
+        public async Task<IEnumerable<ShortenedUrl>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await context.ShortUrls.ToListAsync();
         }
 
-        public Task<ShortenedUrl> GetByLongUriAsync(string longUri)
+        public async Task<ShortenedUrl?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var result = await context.ShortUrls.FirstOrDefaultAsync(x => x.ShorterUrlId == id, cancellationToken);
+
+            return result;
+        }
+
+        public async Task<ShortenedUrl?> GetByLongUriAsync(string originalUrl, CancellationToken cancellationToken = default)
+        {
+            var result = await context.ShortUrls
+                        .FirstOrDefaultAsync(x => x.OriginalUrl == originalUrl, cancellationToken);
+
+            return result;
+        }
+
+        public async Task UpdateAsync(ShortenedUrl entity, CancellationToken cancellationToken = default)
+        {
+            context.Entry(entity).State = EntityState.Modified;
+            await context.SaveChangesAsync(cancellationToken);
         }
     }
 }

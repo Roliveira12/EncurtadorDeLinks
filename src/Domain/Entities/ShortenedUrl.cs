@@ -5,7 +5,7 @@
         public Guid Id { get; set; }
         public string OriginalUrl { get; set; }
         public string ShorterUrlId { get; set; }
-        public int AcessCount { get; set; }
+        public int AccessCount { get; set; }
         public DateTimeOffset CreatedDate { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Infrastructure.Database.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Database

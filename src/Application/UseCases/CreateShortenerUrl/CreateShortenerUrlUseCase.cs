@@ -2,6 +2,7 @@
 using Domain.Interfaces;
 using FluentValidation;
 using FluentValidation.Results;
+using Infrastructure.Bus.RabbitMq;
 using WebApi.Boundaries.ShortenerUrl;
 
 namespace Application.UseCases.CreateShortenerUrl
@@ -9,26 +10,28 @@ namespace Application.UseCases.CreateShortenerUrl
     public class CreateShortenerUrlUseCase : ICreateShortenerUrlUseCase
     {
         private readonly IShortUrlRepository shortUrlRepository;
+        private readonly IRabbitBus bus;
 
-        public CreateShortenerUrlUseCase(IShortUrlRepository shortUrlRepository)
+        private const string PublishExchangeName = "shorted.url";
+        private const string RoutingKey = "on.shorted.url.created";
+
+        public CreateShortenerUrlUseCase(IShortUrlRepository shortUrlRepository, IRabbitBus bus)
         {
             this.shortUrlRepository = shortUrlRepository;
+            this.bus = bus;
         }
 
         public async Task<ShortenerUrlOutput> ExecuteAsync(string input, CancellationToken cancellationToken)
         {
-            var validationResult = ValidateInput(input);
+            ShortenerUrlOutput output = new();
+            ValidateInput(input);
 
-            if (!validationResult.IsValid)
+            var existingUri = await shortUrlRepository.GetByLongUriAsync(input);
+
+            if (existingUri is not null)
             {
-                throw new ValidationException(validationResult.Errors);
-            }
-
-            var alreadyExistsUri = await shortUrlRepository.GetByLongUriAsync(input);
-
-            if (alreadyExistsUri is not null)
-            {
-                return new ShortenerUrlOutput();
+                output = existingUri.MapToOutput();
+                return output;
             }
 
             //cria o id da url
@@ -36,15 +39,18 @@ namespace Application.UseCases.CreateShortenerUrl
             var dbEntity = GetEntity(input, shortUrlId);
 
             //grava no banco
-
             await shortUrlRepository.CreateAsync(dbEntity, cancellationToken);
-            
+
             //publica na fila do RabbitMQ a mensagem para consumo.
 
+            _ = PublishMessage(dbEntity);
 
-            //retona output.
+            return output;
+        }
 
-            return new ShortenerUrlOutput();
+        private async Task PublishMessage(ShortenedUrl @event)
+        {
+            await bus.PublishAsync(@event, PublishExchangeName, RoutingKey, ExchangeType.topic);
         }
 
         private static ShortenedUrl GetEntity(string input, string shorterUrlId)
@@ -57,7 +63,7 @@ namespace Application.UseCases.CreateShortenerUrl
             };
         }
 
-        private static ValidationResult ValidateInput(string input)
+        private static void ValidateInput(string input)
         {
             var validationFailures = new List<ValidationFailure>();
             if (string.IsNullOrEmpty(input))
@@ -71,7 +77,11 @@ namespace Application.UseCases.CreateShortenerUrl
                 validationFailures.Add(new ValidationFailure(nameof(input), "Is not a valid Uri"));
             }
 
-            return new ValidationResult(validationFailures);
+            if (validationFailures.Any()) 
+            {
+                throw new ValidationException(validationFailures);
+            }
+
         }
     }
 }

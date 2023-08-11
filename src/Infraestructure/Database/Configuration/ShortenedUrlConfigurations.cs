@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.Database
+namespace Infrastructure.Database.Configuration
 {
     public class ShortenedUrlConfigurations : IEntityTypeConfiguration<ShortenedUrl>
     {
