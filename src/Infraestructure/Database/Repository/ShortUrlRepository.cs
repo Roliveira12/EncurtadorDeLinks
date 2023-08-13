@@ -25,14 +25,14 @@ namespace Infrastructure.Database.Repository
             return await context.ShortUrls.ToListAsync();
         }
 
-        public async Task<ShortenedUrl?> GetByIdAsync(string id, CancellationToken cancellationToken = default)
+        public async Task<ShortenedUrl?> GetByShortIdAsync(string id, CancellationToken cancellationToken = default)
         {
             var result = await context.ShortUrls.FirstOrDefaultAsync(x => x.ShorterUrlId == id, cancellationToken);
 
             return result;
         }
 
-        public async Task<ShortenedUrl?> GetByLongUriAsync(string originalUrl, CancellationToken cancellationToken = default)
+        public async Task<ShortenedUrl?> GetByLongUrlAsync(string originalUrl, CancellationToken cancellationToken = default)
         {
             var result = await context.ShortUrls
                         .FirstOrDefaultAsync(x => x.OriginalUrl == originalUrl, cancellationToken);

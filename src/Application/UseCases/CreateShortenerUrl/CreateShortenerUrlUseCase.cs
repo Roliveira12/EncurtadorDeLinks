@@ -1,9 +1,10 @@
-﻿using Domain.Entities;
+﻿using Application.UseCases.Boundaries.ShortenerUrl;
+using Application.UseCases.CreateShortenerUrl.Mappers;
+using Domain.Entities;
 using Domain.Interfaces;
 using FluentValidation;
 using FluentValidation.Results;
 using Infrastructure.Bus.RabbitMq;
-using WebApi.Boundaries.ShortenerUrl;
 
 namespace Application.UseCases.CreateShortenerUrl
 {
@@ -21,12 +22,12 @@ namespace Application.UseCases.CreateShortenerUrl
             this.bus = bus;
         }
 
-        public async Task<ShortenerUrlOutput> ExecuteAsync(string input, CancellationToken cancellationToken)
+        public async Task<ShortenerUrlOutput?> ExecuteAsync(string input, CancellationToken cancellationToken)
         {
             ShortenerUrlOutput output = new();
             ValidateInput(input);
 
-            var existingUri = await shortUrlRepository.GetByLongUriAsync(input);
+            var existingUri = await shortUrlRepository.GetByLongUrlAsync(input, cancellationToken);
 
             if (existingUri is not null)
             {
@@ -57,7 +58,6 @@ namespace Application.UseCases.CreateShortenerUrl
         {
             return new ShortenedUrl()
             {
-                Id = Guid.NewGuid(),
                 ShorterUrlId = shorterUrlId,
                 OriginalUrl = input
             };

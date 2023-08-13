@@ -1,6 +1,6 @@
 ﻿namespace Infraestructure.Database
 {
-    public class PostgreConfiguration
+    public class PostgreConfigurations
     {
         public string Server { get; set; }
         public string User { get; set; }
@@ -10,7 +10,7 @@
 
         public string GetConnectionString()
         {
-            return @$"Host={Server};Port={Port};Database=YourDatabaseName;Username=YourUsername;Password=YourPassword;\";
+            return @$"Host={Server}; Port={Port}; Database={DatabaseName}; Username={User}; Password={Password}";
         }
     }
 }

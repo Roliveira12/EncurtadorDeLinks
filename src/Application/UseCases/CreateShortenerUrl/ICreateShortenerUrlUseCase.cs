@@ -1,5 +1,4 @@
-﻿using Domain.Entities;
-using WebApi.Boundaries.ShortenerUrl;
+﻿using Application.UseCases.Boundaries.ShortenerUrl;
 
 namespace Application.UseCases.CreateShortenerUrl
 {

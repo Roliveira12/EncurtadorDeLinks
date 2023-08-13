@@ -8,7 +8,7 @@ namespace Infrastructure.Database.Configuration
     {
         public void Configure(EntityTypeBuilder<ShortenedUrl> builder)
         {
-            builder.ToTable("ShortnedUrls");
+            builder.ToTable("shortenedurls");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.OriginalUrl).IsRequired().HasColumnName("OriginalUrl");
             builder.Property(x => x.ShorterUrlId).IsRequired().HasColumnName("ShorterUrl");

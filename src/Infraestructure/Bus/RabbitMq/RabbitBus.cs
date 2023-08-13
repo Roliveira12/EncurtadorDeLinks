@@ -7,12 +7,12 @@ namespace Infrastructure.Bus.RabbitMq
     internal sealed class RabbitBus : IRabbitBus
     {
         private readonly IAdvancedBus advancedBus;
-        private readonly IOptionsSnapshot<RabbitMQConfigurations> rabbitConfigurations;
+        private readonly RabbitMQConfigurations _rabbitConfigurations;
 
         public RabbitBus(IOptionsSnapshot<RabbitMQConfigurations> rabbitConfigurations)
         {
-            this.rabbitConfigurations = rabbitConfigurations;
-            advancedBus = RabbitHutch.CreateBus(rabbitConfigurations.Value.ConnectionString).Advanced;
+            _rabbitConfigurations = rabbitConfigurations.Value;
+            advancedBus = RabbitHutch.CreateBus(_rabbitConfigurations.ConnectionString).Advanced;
         }
 
         public async Task PublishAsync<TMessage>(TMessage message, string exchangeName, string routingKey, ExchangeType exchangeType)

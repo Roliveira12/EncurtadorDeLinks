@@ -1,5 +1,5 @@
-﻿using Domain.Entities;
-using WebApi.Boundaries.ShortenerUrl;
+﻿using Application.UseCases.Boundaries.ShortenerUrl;
+using Domain.Entities;
 
 namespace Application.UseCases.CreateShortenerUrl.Mappers
 {
@@ -10,8 +10,8 @@ namespace Application.UseCases.CreateShortenerUrl.Mappers
             return new ShortenerUrlOutput()
             {
                 AcessCount = shortenedUrl.AccessCount,
-                Id = shortenedUrl.Id.ToString(),
-                OriginalUrl = shortenedUrl.OriginalUrl,
+                Id = shortenedUrl.Id,
+                Url = shortenedUrl.OriginalUrl,
                 ShortUrl = shortenedUrl.ShorterUrlId
             };
         }

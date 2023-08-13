@@ -6,9 +6,9 @@ namespace Domain.Interfaces
     {
         Task CreateAsync(ShortenedUrl entity, CancellationToken cancellationToken = default);
 
-        Task<ShortenedUrl?> GetByIdAsync(string id, CancellationToken cancellationtoken = default);
+        Task<ShortenedUrl?> GetByShortIdAsync(string id, CancellationToken cancellationtoken = default);
 
-        Task<ShortenedUrl?> GetByLongUriAsync(string longUri, CancellationToken cancellationToken = default);
+        Task<ShortenedUrl?> GetByLongUrlAsync(string longUri, CancellationToken cancellationToken = default);
 
         Task UpdateAsync(ShortenedUrl enitity, CancellationToken cancellationToken = default);
 
