@@ -1,4 +1,4 @@
-﻿namespace Application.UseCases.GetShortenerUrlUseCase.Enums
+﻿namespace Domain.Entities.Enums
 {
     public enum OrderByType
     {

@@ -10,9 +10,9 @@ namespace Infrastructure.Database.Configuration
         {
             builder.ToTable("shortenedurls");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.OriginalUrl).IsRequired().HasColumnName("OriginalUrl");
-            builder.Property(x => x.ShorterUrlId).IsRequired().HasColumnName("ShorterUrlId");
-            builder.Property(x => x.AccessCount).HasColumnName("AccessCount");
+            builder.Property(x => x.Url).IsRequired().HasColumnName("OriginalUrl");
+            builder.Property(x => x.ShortUrl).IsRequired().HasColumnName("ShorterUrlId");
+            builder.Property(x => x.Hits).HasColumnName("AccessCount");
             builder.Property(x => x.CreatedDate).HasDefaultValueSql("NOW()").HasColumnName("CreatedDate");
         }
     }

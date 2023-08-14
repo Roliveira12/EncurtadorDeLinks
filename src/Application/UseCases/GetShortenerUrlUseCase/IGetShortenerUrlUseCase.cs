@@ -1,5 +1,5 @@
 ﻿using Application.UseCases.Boundaries.ShortenerUrl;
-using Application.UseCases.GetShortenerUrlUseCase.Enums;
+using Domain.Entities.Enums;
 
 namespace Application.UseCases.GetShortenerUrlUseCase
 {

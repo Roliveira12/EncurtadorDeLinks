@@ -24,11 +24,11 @@ namespace Application.UseCases.CreateShortenerUrl
 
         public async Task<ShortenerUrlOutput?> ExecuteAsync(string input, CancellationToken cancellationToken)
         {
-            ShortenerUrlOutput output = new();
             ValidateInput(input);
 
             var existingUri = await shortUrlRepository.GetByLongUrlAsync(input, cancellationToken);
 
+            ShortenerUrlOutput output = new();
             if (existingUri is not null)
             {
                 output = existingUri.MapToOutput();
@@ -60,10 +60,9 @@ namespace Application.UseCases.CreateShortenerUrl
         {
             return new ShortenedUrl()
             {
-                ShorterUrlId = shorterUrlId,
-                OriginalUrl = input,
-                CreatedDate = DateTime.UtcNow,
-                
+                ShortUrl = shorterUrlId,
+                Url = input,
+                CreatedDate = DateTime.UtcNow,                
             };
         }
 

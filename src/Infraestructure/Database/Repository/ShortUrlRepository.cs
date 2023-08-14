@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Entities.Enums;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,14 +21,27 @@ namespace Infrastructure.Database.Repository
             await context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<ShortenedUrl>> GetAllAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<ShortenedUrl>> GetTopItemsAsync(int top, OrderByType orderByType, CancellationToken cancellationToken = default)
         {
-            return await context.ShortUrls.ToListAsync();
+            if (orderByType == OrderByType.Ascending)
+            {
+                return await context.ShortUrls
+                                    .Take(top)
+                                    .OrderBy(x => x.Hits)
+                                    .ToListAsync();
+            }
+            else
+            {
+                return await context.ShortUrls
+                    .Take(top)
+                    .OrderByDescending(x => x.Hits)
+                    .ToListAsync();
+            }
         }
 
         public async Task<ShortenedUrl?> GetByShortIdAsync(string id, CancellationToken cancellationToken = default)
         {
-            var result = await context.ShortUrls.FirstOrDefaultAsync(x => x.ShorterUrlId == id, cancellationToken);
+            var result = await context.ShortUrls.FirstOrDefaultAsync(x => x.ShortUrl == id, cancellationToken);
 
             return result;
         }
@@ -35,7 +49,7 @@ namespace Infrastructure.Database.Repository
         public async Task<ShortenedUrl?> GetByLongUrlAsync(string originalUrl, CancellationToken cancellationToken = default)
         {
             var result = await context.ShortUrls
-                        .FirstOrDefaultAsync(x => x.OriginalUrl == originalUrl, cancellationToken);
+                        .FirstOrDefaultAsync(x => x.Url == originalUrl, cancellationToken);
 
             return result;
         }

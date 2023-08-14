@@ -10,4 +10,10 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Application">
+      <HintPath>..\Application\obj\Debug\net6.0\ref\Application.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

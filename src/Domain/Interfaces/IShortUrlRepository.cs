@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Entities.Enums;
 
 namespace Domain.Interfaces
 {
@@ -12,6 +13,6 @@ namespace Domain.Interfaces
 
         Task UpdateAsync(ShortenedUrl enitity, CancellationToken cancellationToken = default);
 
-        Task<IEnumerable<ShortenedUrl>> GetAllAsync(CancellationToken cancellationToken = default);
+        Task<IEnumerable<ShortenedUrl>> GetTopItemsAsync(int top, OrderByType orderByType, CancellationToken cancellationToken = default);
     }
 }

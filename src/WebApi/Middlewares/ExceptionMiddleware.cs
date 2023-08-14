@@ -1,14 +1,11 @@
 ﻿using FluentValidation;
 using System.Text.Json;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 namespace WebApi.Middlewares
 {
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate next;
-        private readonly ILogger<ExceptionMiddleware> logger;
-        private readonly IWebHostEnvironment env;
 
         public ExceptionMiddleware(RequestDelegate next)
         {

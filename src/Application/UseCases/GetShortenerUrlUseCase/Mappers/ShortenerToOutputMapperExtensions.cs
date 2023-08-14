@@ -9,10 +9,10 @@ namespace Application.UseCases.GetShortenerUrlUseCase.Mappers
         {
             return new ShortenerUrlOutput()
             {
-                AcessCount = shortenedUrl.AccessCount,
-                Id = shortenedUrl.Id,
-                Url = shortenedUrl.OriginalUrl,
-                ShortUrl = shortenedUrl.ShorterUrlId
+                Hits = shortenedUrl.Hits,
+                Id = shortenedUrl.Id.ToString(),
+                Url = shortenedUrl.Url,
+                ShortUrl = shortenedUrl.ShortUrl
             };
         }
     }
