@@ -6,14 +6,8 @@ infra-up:
 infra-down:
 	docker-compose down
 
-local-build:
-	dotnet build ShortenerUrl.sln
-
-local-clean:
-	dotnet clean ShortenerUrl.sln
-
-local-run:
-	dotnet watch --project src/WebApi/WebApi.csproj run	
+api-build:
+	docker-compose build api
 
 api-up:
 	docker-compose up -d api
