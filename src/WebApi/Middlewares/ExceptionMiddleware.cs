@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using System.Text.Json;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 namespace WebApi.Middlewares
 {
@@ -7,6 +8,7 @@ namespace WebApi.Middlewares
     {
         private readonly RequestDelegate next;
         private readonly ILogger<ExceptionMiddleware> logger;
+        private readonly IWebHostEnvironment env;
 
         public ExceptionMiddleware(RequestDelegate next)
         {
@@ -38,7 +40,7 @@ namespace WebApi.Middlewares
             }
             else
             {
-                result = ex.Message;
+                result = JsonSerializer.Serialize(new { ex.Message }); ;
             }
 
             context.Response.ContentType = "application/json";

@@ -6,6 +6,6 @@
         public string OriginalUrl { get; set; }
         public string ShorterUrlId { get; set; }
         public long AccessCount { get; set; }
-        public DateTimeOffset CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

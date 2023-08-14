@@ -46,6 +46,8 @@ namespace Application.UseCases.CreateShortenerUrl
 
             _ = PublishMessage(dbEntity);
 
+            output = dbEntity.MapToOutput();
+
             return output;
         }
 
@@ -59,7 +61,9 @@ namespace Application.UseCases.CreateShortenerUrl
             return new ShortenedUrl()
             {
                 ShorterUrlId = shorterUrlId,
-                OriginalUrl = input
+                OriginalUrl = input,
+                CreatedDate = DateTime.UtcNow,
+                
             };
         }
 

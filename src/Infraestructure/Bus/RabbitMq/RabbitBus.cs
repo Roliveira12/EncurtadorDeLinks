@@ -9,7 +9,7 @@ namespace Infrastructure.Bus.RabbitMq
         private readonly IAdvancedBus advancedBus;
         private readonly RabbitMQConfigurations _rabbitConfigurations;
 
-        public RabbitBus(IOptionsSnapshot<RabbitMQConfigurations> rabbitConfigurations)
+        public RabbitBus(IOptions<RabbitMQConfigurations> rabbitConfigurations)
         {
             _rabbitConfigurations = rabbitConfigurations.Value;
             advancedBus = RabbitHutch.CreateBus(_rabbitConfigurations.ConnectionString).Advanced;

@@ -20,7 +20,7 @@ namespace Infrastructure.Bus
 
             services.AddSingleton<IRabbitBus>(provider =>
             {
-                var options = provider.GetRequiredService<IOptionsSnapshot<RabbitMQConfigurations>>();
+                var options = provider.GetRequiredService<IOptions<RabbitMQConfigurations>>();
 
                 return new RabbitBus(options);
             });

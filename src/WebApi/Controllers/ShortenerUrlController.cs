@@ -1,9 +1,9 @@
-﻿using Application.UseCases;
-using Application.UseCases.Boundaries.ShortenerUrl;
+﻿using Application.UseCases.Boundaries.ShortenerUrl;
 using Application.UseCases.CreateShortenerUrl;
 using Application.UseCases.GetShortenerUrlUseCase;
 using Application.UseCases.GetShortenerUrlUseCase.Enums;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Controllers.Boundaries;
 
 namespace WebApi.Controllers
 {
@@ -26,11 +26,11 @@ namespace WebApi.Controllers
             return new OkObjectResult(new OkObjectResult(result));
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{urlId}")]
         [ProducesResponseType(typeof(ShortenerUrlOutput), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetByIdAsync([FromServices] IGetShortenerUrlUseCase useCase, string urlId, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetByIdAsync([FromServices] IGetShortenerUrlUseCase useCase, [FromRoute]string urlId, CancellationToken cancellationToken)
         {
             var result = await useCase.ExecuteAsync(urlId, cancellationToken);
 
@@ -45,9 +45,9 @@ namespace WebApi.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ShortenerUrlOutput), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(BadRequestObjectResult), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateShortUrlAsync([FromServices] ICreateShortenerUrlUseCase useCase, [FromBody] string url, CancellationToken cancellationToken)
+        public async Task<IActionResult> CreateShortUrlAsync([FromServices] ICreateShortenerUrlUseCase useCase, [FromBody] ShortenerUrlRequest request, CancellationToken cancellationToken)
         {
-            var result = await useCase.ExecuteAsync(url, cancellationToken);
+            var result = await useCase.ExecuteAsync(request.Url, cancellationToken);
 
             return Created("", result);
         }

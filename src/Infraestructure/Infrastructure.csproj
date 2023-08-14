@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="EasyNetQ" Version="7.5.5" />
+    <PackageReference Include="EasyNetQ.Serialization.NewtonsoftJson" Version="7.5.5" />
+    <PackageReference Include="EasyNetQ.Serialization.SystemTextJson" Version="7.5.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.21" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="7.0.1" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
