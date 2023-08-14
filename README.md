@@ -1,6 +1,6 @@
 # URL Shortener
 
-This project provides a .NET-based URL shortening service with integration to PostgreSQL for data storage and RabbitMQ for message queuing, utilizing the EasyNetQ framework. The project follows the Clean Architecture pattern.
+This project provides a . NET-based URL shortening service with integration to PostgreSQL for data storage and RabbitMQ for message queuing, utilizing the EasyNetQ framework. The project follows a Clean Architecture pattern.
 
 ## Features
 
@@ -15,17 +15,17 @@ This project provides a .NET-based URL shortening service with integration to Po
 - [RabbitMQ](https://www.rabbitmq.com/) with [EasyNetQ Framework](https://github.com/EasyNetQ/EasyNetQ)
 
 
-## Architeture Used
-- This project uses Clean Architeture in order to organize layers 
+## Architecture Used
+- This project uses Clean Architecture in order to organize layers 
 
 ## Prerequisites
 
 Ensure you have the following components installed:
 - MakeFile ( You can proceed without this, but is cool )
 - [.NET 6 SDK](https://dotnet.microsoft.com/download) - for building and running the project.
-- [Docker](https://www.docker.com/get-started) - for running PostgreSQL and RabbitMQ containers and download images
+- [Docker](https://www.docker.com/get-started) - for running PostgreSQL and RabbitMQ containers and downloading images
 
-If you don't have Docker installed you can use the WSL2 with an Linux Distribution to run docker-compose
+If you don't have Docker installed you can use the WSL2 with a Linux Distribution to run docker-compose
 
 ## Setup
 
@@ -50,9 +50,9 @@ If you don't have Docker installed you can use the WSL2 with an Linux Distributi
 
 ### 1. Running Application
 
-In order to run the application you can use the MakeFile in root folder:
+In order to run the application you can use the Makefile in root folder:
 
- If you want debug the application just run
+ If you want to debug the application just run
 
 ```
   make infra-up 
@@ -60,11 +60,11 @@ In order to run the application you can use the MakeFile in root folder:
 This will run the docker-compose and initiates all the infra needed
 
 ### 1.1 Running Containerized
-If you want to run it on a containered project you just have to run the command 
+If you want to run it on a contained project you just have to run the command 
 
 `make` start
 
-This will start everthing you need to run application
+This will start everything you need to run the application
 
 The application is exposed on port `7027`
 
@@ -90,9 +90,9 @@ Use an HTTP client (e.g., cURL or Postman) to make a POST request to `http://loc
 
 ### 6. Accessing ShortenedUrls
 
-- First of all we need to create the URL
+- First of all, we need to create the URL
 
-    Since you have started application just send a post to localhost:7027/shorten
+    Since you have started the application just send a post to localhost:7027/shorten
 
     ```json
     {
@@ -100,10 +100,10 @@ Use an HTTP client (e.g., cURL or Postman) to make a POST request to `http://loc
     }
     ```
 
-    If this is a valid url will return the output with 201(Created)
+    If this is a valid URL will return the output with 201(Created)
 
-    Since they are created will send a event to RabbitMQ
-    In fact they will send on Exchange: `shorted.url` the event `on.shorted.url.created`
+    Since they are created will send an event to RabbitMQ
+    In fact, they will send on Exchange: `shorted.url` the event `on.shorted.url.created`
 
     ```json
     {
@@ -118,7 +118,7 @@ Use an HTTP client (e.g., cURL or Postman) to make a POST request to `http://loc
 
    `localhost:7027/{shortUrlId}`
 
-    If they exists, will redirect you to OriginalUrl and in background will increase one hit to the url on database 
+    If they exist, will redirect you to OriginalUrl and in the background will increase one hit to the URL on the database 
 
 
 ## Contributing
